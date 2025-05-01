@@ -10,7 +10,7 @@ echo 'LANG=ja_JP.UTF-8' | sudo tee /etc/default/locale > /dev/null
 
 #JupyterLabのインストール
 sudo apt -y install python3-pip
-sudo pip3 install jupyterlab
+sudo pip3 install --user jupyterlab
 #jupyter_configを~/.jupyter/に作る
 jupyter-lab --generate-config
 
