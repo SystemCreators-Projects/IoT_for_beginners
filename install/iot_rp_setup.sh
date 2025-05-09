@@ -54,7 +54,7 @@ for i in $(seq 1 $NUM_NETWORKS); do
     echo "Setting up $CON_NAME with SSID $SSID"
 
     nmcli connection add type wifi \
-        con-name "$CON_NAME" \
+        con-name "$SSID" \
         ifname wlan0 \
         ssid "$SSID" \
         wifi-sec.key-mgmt wpa-psk \
