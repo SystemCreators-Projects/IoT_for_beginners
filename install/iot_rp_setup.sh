@@ -36,7 +36,6 @@ sudo systemctl start NetworkManager.service
 
 #NetworkManagerの接続ファイルを削除
 sudo rm /etc/NetworkManager/system-connections/*.nmconnection
-sudo nmcli connection reload
 
 # ネットワークの数を取得
 NUM_NETWORKS=$(grep -o 'SSID_' "$SECRET_ENV_FILE" | wc -l)
