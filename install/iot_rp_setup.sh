@@ -69,6 +69,4 @@ done
 rm -f "$SECRET_ENV_FILE"
 
 # 終了
-echo "Configuration complete. The system will reboot now."
-read -p "Press [Enter] to continue or Ctrl+C to cancel..."
 sudo reboot
