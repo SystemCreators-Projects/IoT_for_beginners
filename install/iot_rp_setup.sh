@@ -65,7 +65,7 @@ for i in $(seq 1 $NUM_NETWORKS); do
         802-11-wireless.hidden false
 done
 
-secret.env を削除
+# secret.env を削除
 rm -f "$SECRET_ENV_FILE"
 
 # 終了
