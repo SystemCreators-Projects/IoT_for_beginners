@@ -8,6 +8,9 @@ if [ ! -f "$SECRET_ENV_FILE" ]; then
   exit 1
 fi
 
+# 改行コードをLFに置換（CRを削除）
+sed -i 's/\r$//' "$SECRET_ENV_FILE"
+
 # .env 読み込み
 source "$SECRET_ENV_FILE"
 
