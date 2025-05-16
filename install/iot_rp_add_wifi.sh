@@ -15,7 +15,7 @@ sed -i 's/\r$//' "$SECRET_ENV_FILE"
 source "$SECRET_ENV_FILE"
 
 #NetworkManagerの接続ファイルを削除
-#sudo rm /etc/NetworkManager/system-connections/*.nmconnection
+sudo rm /etc/NetworkManager/system-connections/*.nmconnection
 
 # ネットワークの数を取得
 NUM_NETWORKS=$(grep -o 'SSID_' "$SECRET_ENV_FILE" | wc -l)
