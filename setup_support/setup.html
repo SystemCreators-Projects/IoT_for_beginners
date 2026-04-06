@@ -105,6 +105,14 @@
       padding: 10px 14px;
     }
 
+    .cmd-label {
+      font-size: 0.78rem;
+      font-weight: 700;
+      color: #744210;
+      margin-top: 10px;
+      margin-bottom: 4px;
+    }
+
     .cmd-text {
       flex: 1;
       font-family: 'Consolas', 'Courier New', monospace;
@@ -320,6 +328,15 @@
       items: [
         { type: 'cmd', template: 'sudo reboot' }
       ]
+    },
+    {
+      num: 10,
+      title: 'WiFi 設定',
+      items: [
+        { type: 'cmd', template: 'scp ./secret.env {ID}@{ID}.local:/tmp/' },
+        { type: 'cmd', template: 'bash <(curl -sL https://raw.githubusercontent.com/SystemCreators-Projects/IoT_for_beginners/main/install/iot_rp_add_wifi.sh)', label: '追加' },
+        { type: 'cmd', template: 'bash <(curl -sL https://raw.githubusercontent.com/SystemCreators-Projects/IoT_for_beginners/main/install/iot_rp_overwrite_wifi.sh)', label: '上書き' }
+      ]
     }
   ];
 
@@ -360,6 +377,12 @@
       step.items.forEach(item => {
         if (item.type === 'cmd') {
           const resolved = resolve(item.template, id);
+          if (item.label) {
+            const labelEl = document.createElement('div');
+            labelEl.className = 'cmd-label';
+            labelEl.textContent = item.label;
+            div.appendChild(labelEl);
+          }
           const row = document.createElement('div');
           row.className = 'cmd-row';
           row.innerHTML = `<span class="cmd-text">${escHtml(resolved)}</span>`;
