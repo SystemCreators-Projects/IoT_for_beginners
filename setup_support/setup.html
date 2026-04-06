@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>IoT スクール セットアップ手順</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: #f0f4f8;
+      color: #1a202c;
+      padding: 32px 16px;
+    }
+
+    h1 {
+      text-align: center;
+      font-size: 1.6rem;
+      margin-bottom: 24px;
+      color: #2d3748;
+    }
+
+    .id-section {
+      background: #fff;
+      border: 2px solid #4299e1;
+      border-radius: 12px;
+      padding: 20px 24px;
+      max-width: 640px;
+      margin: 0 auto 32px;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .id-section label {
+      font-weight: 700;
+      font-size: 1rem;
+      white-space: nowrap;
+      color: #2b6cb0;
+    }
+
+    .id-section input {
+      flex: 1;
+      font-size: 1.1rem;
+      padding: 8px 12px;
+      border: 2px solid #bee3f8;
+      border-radius: 8px;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+
+    .id-section input:focus {
+      border-color: #4299e1;
+    }
+
+    .steps {
+      max-width: 640px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .step {
+      background: #fff;
+      border-radius: 12px;
+      padding: 18px 20px;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+    }
+
+    .step-header {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 12px;
+    }
+
+    .step-num {
+      background: #4299e1;
+      color: #fff;
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 0.9rem;
+      flex-shrink: 0;
+    }
+
+    .step-title {
+      font-weight: 700;
+      font-size: 1rem;
+      color: #2d3748;
+    }
+
+    .cmd-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: #1a202c;
+      border-radius: 8px;
+      padding: 10px 14px;
+    }
+
+    .cmd-text {
+      flex: 1;
+      font-family: 'Consolas', 'Courier New', monospace;
+      font-size: 0.88rem;
+      color: #e2e8f0;
+      word-break: break-all;
+    }
+
+    .copy-btn {
+      background: #4299e1;
+      color: #fff;
+      border: none;
+      border-radius: 6px;
+      padding: 6px 12px;
+      font-size: 0.8rem;
+      cursor: pointer;
+      flex-shrink: 0;
+      transition: background 0.15s;
+    }
+
+    .copy-btn:hover { background: #3182ce; }
+    .copy-btn.last-clicked { background: #38a169; }
+
+    .info-row {
+      background: #ebf8ff;
+      border: 1px solid #bee3f8;
+      border-radius: 8px;
+      padding: 10px 14px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .info-text {
+      flex: 1;
+      font-size: 0.92rem;
+      color: #2b6cb0;
+    }
+
+    .qa-wrapper {
+      margin-top: 12px;
+      border: 1px solid #e2e8f0;
+      border-radius: 8px;
+      overflow: hidden;
+    }
+
+    .qa-label {
+      background: #edf2f7;
+      font-size: 0.78rem;
+      font-weight: 700;
+      color: #718096;
+      padding: 6px 12px;
+      letter-spacing: 0.05em;
+    }
+
+    .qa-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 12px;
+      border-top: 1px solid #e2e8f0;
+      flex-wrap: wrap;
+    }
+
+    .qa-q {
+      flex: 1;
+      font-size: 0.82rem;
+      color: #4a5568;
+      min-width: 160px;
+    }
+
+    .qa-a {
+      font-family: 'Consolas', 'Courier New', monospace;
+      font-size: 0.88rem;
+      font-weight: 700;
+      color: #276749;
+      background: #f0fff4;
+      border: 1px solid #9ae6b4;
+      border-radius: 4px;
+      padding: 2px 8px;
+    }
+
+    .qa-enter {
+      font-size: 0.8rem;
+      color: #a0aec0;
+      background: #edf2f7;
+      border: 1px solid #cbd5e0;
+      border-radius: 4px;
+      padding: 2px 8px;
+      font-family: 'Consolas', monospace;
+    }
+
+    .qa-copy {
+      padding: 3px 9px;
+      font-size: 0.75rem;
+    }
+
+    .url-row {
+      margin-top: 4px;
+    }
+
+    .url-link {
+      display: inline-block;
+      font-family: 'Consolas', 'Courier New', monospace;
+      font-size: 0.95rem;
+      color: #2b6cb0;
+      background: #ebf8ff;
+      border: 1px solid #bee3f8;
+      border-radius: 8px;
+      padding: 10px 16px;
+      text-decoration: none;
+      width: 100%;
+      transition: background 0.15s;
+    }
+
+    .url-link:hover {
+      background: #bee3f8;
+    }
+  </style>
+</head>
+<body>
+
+<h1>IoT スクール セットアップ手順</h1>
+
+<div class="id-section">
+  <label>ラズパイ ID：</label>
+  <input type="text" id="piId" value="s2601" placeholder="例: s2601" oninput="updateAll()">
+</div>
+
+<div class="steps" id="steps"></div>
+
+<script>
+  // ステップ定義
+  // type: "cmd" | "url" | "info"
+  const stepsData = [
+    {
+      num: 1,
+      title: 'SSH 接続',
+      items: [
+        { type: 'cmd', template: 'ssh {ID}@{ID}.local' }
+      ]
+    },
+    {
+      num: 2,
+      title: 'パワーシェルから設定ファイルを転送',
+      items: [
+        { type: 'cmd', template: 'scp ./secret.env {ID}@{ID}.local:/tmp/' }
+      ]
+    },
+    {
+      num: 3,
+      title: 'ラズパイセットアップ',
+      items: [
+        { type: 'cmd', template: 'bash <(curl -sL https://raw.githubusercontent.com/SystemCreators-Projects/IoT_for_beginners/main/install/iot_rp_setup.sh)' }
+      ]
+    },
+    {
+      num: 4,
+      title: 'Jupyter Lab インストール',
+      items: [
+        { type: 'cmd', template: 'bash <(curl -sL https://raw.githubusercontent.com/YukiAoki-GU/IoT_for_beginners/main/install/jupyer_install.sh)' }
+      ]
+    },
+    {
+      num: 5,
+      title: 'Jupyter Lab にアクセス',
+      items: [
+        { type: 'url', template: 'http://{ID}.local:8080' },
+        { type: 'info', text: 'ログインパスワード：', value: 'iot-school' }
+      ]
+    },
+    {
+      num: 6,
+      title: 'Node-RED インストール',
+      items: [
+        { type: 'cmd', template: 'bash <(curl -sL https://raw.githubusercontent.com/node-red/linux-installers/master/deb/update-nodejs-and-nodered)' },
+        { type: 'qa', questions: [
+          { q: 'Are you really sure want to do this ?', a: 'y' },
+          { q: 'Would you like to install the Pi-specific nodes ?', a: 'y' },
+          { q: 'Would you like to customise the settings now (y/N) ?', a: 'y' },
+          { q: 'Settings file >', a: null },
+          { q: 'Do you want to setup user security?', a: 'Yes' },
+          { q: 'Username >', a: '{ID}' },
+          { q: 'Password > (8文字以上)', a: 'password' },
+          { q: 'User permissions >', a: 'full access' },
+          { q: 'Add another user?', a: 'No' },
+          { q: 'Do you want to enable the Projects feature?', a: 'No' },
+          { q: 'Enter a name for your flows file >', a: null },
+          { q: 'Provide a passphrase to encrypt your credentials file >', a: null },
+          { q: 'Select a theme for the editor.', a: 'default' },
+          { q: 'Select the text editor component to use in the Node-RED Editor', a: 'monaco (default)' },
+          { q: 'Allow Function nodes to load external modules?', a: 'Yes' },
+        ]}
+      ]
+    },
+    {
+      num: 7,
+      title: '追加のインストール',
+      items: [
+        { type: 'cmd', template: 'bash <(curl -sL https://raw.githubusercontent.com/YukiAoki-GU/IoT_for_beginners/main/install/nodered_add_install.sh)' }
+      ]
+    },
+    {
+      num: 8,
+      title: 'Node-RED にアクセス',
+      items: [
+        { type: 'url', template: 'http://{ID}:1880' }
+      ]
+    },
+    {
+      num: 9,
+      title: '再起動',
+      items: [
+        { type: 'cmd', template: 'sudo reboot' }
+      ]
+    }
+  ];
+
+  function resolve(template, id) {
+    return template.replace(/\{ID\}/g, id || 's2601');
+  }
+
+  let lastClickedBtn = null;
+
+  function copyText(text, btn) {
+    navigator.clipboard.writeText(text).then(() => {
+      // 前回クリックしたボタンを元に戻す
+      if (lastClickedBtn && lastClickedBtn !== btn) {
+        lastClickedBtn.classList.remove('last-clicked');
+        lastClickedBtn.textContent = 'コピー';
+      }
+      lastClickedBtn = btn;
+      btn.textContent = 'コピー済';
+      btn.classList.add('last-clicked');
+      btn.classList.remove('copied');
+    });
+  }
+
+  function updateAll() {
+    const id = document.getElementById('piId').value.trim() || 's2601';
+    const container = document.getElementById('steps');
+    container.innerHTML = '';
+
+    stepsData.forEach(step => {
+      const div = document.createElement('div');
+      div.className = 'step';
+
+      const header = document.createElement('div');
+      header.className = 'step-header';
+      header.innerHTML = `<div class="step-num">${step.num}</div><div class="step-title">${step.title}</div>`;
+      div.appendChild(header);
+
+      step.items.forEach(item => {
+        if (item.type === 'cmd') {
+          const resolved = resolve(item.template, id);
+          const row = document.createElement('div');
+          row.className = 'cmd-row';
+          row.innerHTML = `<span class="cmd-text">${escHtml(resolved)}</span>`;
+          const btn = document.createElement('button');
+          btn.className = 'copy-btn';
+          btn.textContent = 'コピー';
+          btn.onclick = () => copyText(resolved, btn);
+          row.appendChild(btn);
+          div.appendChild(row);
+        } else if (item.type === 'url') {
+          const resolved = resolve(item.template, id);
+          const row = document.createElement('div');
+          row.className = 'url-row';
+          const link = document.createElement('a');
+          link.href = resolved;
+          link.target = '_blank';
+          link.rel = 'noopener noreferrer';
+          link.className = 'url-link';
+          link.textContent = resolved;
+          row.appendChild(link);
+          div.appendChild(row);
+        } else if (item.type === 'qa') {
+          const wrapper = document.createElement('div');
+          wrapper.className = 'qa-wrapper';
+          const label = document.createElement('div');
+          label.className = 'qa-label';
+          label.textContent = 'インストール中の質問への回答';
+          wrapper.appendChild(label);
+          item.questions.forEach(q => {
+            const row = document.createElement('div');
+            row.className = 'qa-row';
+            const qSpan = document.createElement('span');
+            qSpan.className = 'qa-q';
+            qSpan.textContent = q.q;
+            row.appendChild(qSpan);
+            if (q.a === null) {
+              const enter = document.createElement('span');
+              enter.className = 'qa-enter';
+              enter.textContent = 'Enter';
+              row.appendChild(enter);
+            } else {
+              const resolved = resolve(q.a, id);
+              const aSpan = document.createElement('span');
+              aSpan.className = 'qa-a';
+              aSpan.textContent = resolved;
+              row.appendChild(aSpan);
+            }
+            wrapper.appendChild(row);
+          });
+          div.appendChild(wrapper);
+        } else if (item.type === 'info') {
+          const row = document.createElement('div');
+          row.className = 'info-row';
+          row.innerHTML = `<span class="info-text">${escHtml(item.text)} <strong>${escHtml(item.value)}</strong></span>`;
+          const btn = document.createElement('button');
+          btn.className = 'copy-btn';
+          btn.textContent = 'コピー';
+          btn.style.background = '#805ad5';
+          btn.onclick = () => {
+            copyText(item.value, btn);
+            btn.style.background = '#38a169';
+            setTimeout(() => btn.style.background = '#805ad5', 1800);
+          };
+          row.appendChild(btn);
+          div.appendChild(row);
+        }
+      });
+
+      container.appendChild(div);
+    });
+  }
+
+  function escHtml(str) {
+    return str.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+  }
+
+  updateAll();
+</script>
+</body>
+</html>
